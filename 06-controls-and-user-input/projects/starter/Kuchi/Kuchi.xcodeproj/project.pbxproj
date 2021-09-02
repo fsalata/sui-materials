@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A08AB626E0F19100467073 /* WelcomeBackgroundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08AB526E0F19100467073 /* WelcomeBackgroundImage.swift */; };
+		00A08ABA26E0F1EF00467073 /* LogoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08AB926E0F1EF00467073 /* LogoImage.swift */; };
+		00A08ABE26E0F26100467073 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08ABD26E0F26100467073 /* RegisterView.swift */; };
+		00A08AC226E0F27600467073 /* WelcomeMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08AC126E0F27600467073 /* WelcomeMessageView.swift */; };
+		00A08AC626E0F5F400467073 /* BorderedViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08AC526E0F5F400467073 /* BorderedViewModifier.swift */; };
+		00A08ACA26E0F7DF00467073 /* KeyboardFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08AC926E0F7DF00467073 /* KeyboardFollower.swift */; };
+		00A08AD026E1014800467073 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08ACD26E1014800467073 /* Profile.swift */; };
+		00A08AD126E1014800467073 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08ACE26E1014800467073 /* UserManager.swift */; };
+		00A08AD226E1014800467073 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A08ACF26E1014800467073 /* Settings.swift */; };
 		57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
 		57472F8D2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */; };
 		57578FDE24E9D943003465A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57578FA724E9D943003465A4 /* HomeView.swift */; };
@@ -23,6 +32,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00A08AB526E0F19100467073 /* WelcomeBackgroundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackgroundImage.swift; sourceTree = "<group>"; };
+		00A08AB926E0F1EF00467073 /* LogoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImage.swift; sourceTree = "<group>"; };
+		00A08ABD26E0F26100467073 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		00A08AC126E0F27600467073 /* WelcomeMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeMessageView.swift; sourceTree = "<group>"; };
+		00A08AC526E0F5F400467073 /* BorderedViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedViewModifier.swift; sourceTree = "<group>"; };
+		00A08AC926E0F7DF00467073 /* KeyboardFollower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardFollower.swift; path = ../../../../final/Kuchi/iOS/Utils/KeyboardFollower.swift; sourceTree = "<group>"; };
+		00A08ACD26E1014800467073 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Profile.swift; path = ../../../../final/Kuchi/Shared/Profile/Profile.swift; sourceTree = "<group>"; };
+		00A08ACE26E1014800467073 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserManager.swift; path = ../../../../final/Kuchi/Shared/Profile/UserManager.swift; sourceTree = "<group>"; };
+		00A08ACF26E1014800467073 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = ../../../../final/Kuchi/Shared/Profile/Settings.swift; sourceTree = "<group>"; };
 		57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontallyAlignedLabelStyle.swift; sourceTree = "<group>"; };
 		57578FA724E9D943003465A4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		57578FAA24E9D943003465A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +79,7 @@
 				57578F9224E9D943003465A4 /* Components */,
 				57A447EF252BD68200CF7A3E /* WelcomeView.swift */,
 				57472F8B2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift */,
+				00A08ABD26E0F26100467073 /* RegisterView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -68,6 +87,10 @@
 		57578F9224E9D943003465A4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				00A08AB526E0F19100467073 /* WelcomeBackgroundImage.swift */,
+				00A08AB926E0F1EF00467073 /* LogoImage.swift */,
+				00A08AC126E0F27600467073 /* WelcomeMessageView.swift */,
+				00A08AC526E0F5F400467073 /* BorderedViewModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -93,6 +116,9 @@
 		57B3CA462536553D00888D62 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				00A08ACD26E1014800467073 /* Profile.swift */,
+				00A08ACF26E1014800467073 /* Settings.swift */,
+				00A08ACE26E1014800467073 /* UserManager.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -100,6 +126,7 @@
 		57B3CA58253655AF00888D62 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				00A08AC926E0F7DF00467073 /* KeyboardFollower.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -254,10 +281,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00A08ABA26E0F1EF00467073 /* LogoImage.swift in Sources */,
+				00A08AB626E0F19100467073 /* WelcomeBackgroundImage.swift in Sources */,
+				00A08AD226E1014800467073 /* Settings.swift in Sources */,
 				57EF341324E89F92004ABEB2 /* KuchiApp.swift in Sources */,
+				00A08ABE26E0F26100467073 /* RegisterView.swift in Sources */,
+				00A08ACA26E0F7DF00467073 /* KeyboardFollower.swift in Sources */,
 				57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				00A08AD126E1014800467073 /* UserManager.swift in Sources */,
+				00A08AC626E0F5F400467073 /* BorderedViewModifier.swift in Sources */,
 				57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */,
+				00A08AD026E1014800467073 /* Profile.swift in Sources */,
 				57578FDE24E9D943003465A4 /* HomeView.swift in Sources */,
+				00A08AC226E0F27600467073 /* WelcomeMessageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
