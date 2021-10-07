@@ -33,45 +33,72 @@
 import SwiftUI
 
 struct ChallengeView: View {
-  let challengeTest: ChallengeTest
+    let challengeTest: ChallengeTest
 
-  @State var showAnswers = false
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.questionPerSession) var questionPerSession
 
-  var body: some View {
-    VStack {
-      Button(action: {
-        self.showAnswers.toggle()
-      }) {
-        QuestionView(question: challengeTest.challenge.question)
-          .frame(height: 300)
-      }
+    @State var showAnswers = false
 
-      ScoreView(numberOfQuestions: 5)
+    @Binding var numberOfAnswered: Int
 
-      if showAnswers {
-        Divider()
-        ChoicesView(challengeTest: challengeTest)
-          .frame(height: 300)
-          .padding()
-      }
+    @ViewBuilder
+    var body: some View {
+        if verticalSizeClass == .compact {
+            VStack {
+                HStack {
+                    Button {
+                        self.showAnswers = !self.showAnswers
+                    } label: {
+                        QuestionView(question: challengeTest.challenge.question)
+                    }
+
+                    if showAnswers {
+                        Divider()
+                        ChoicesView(challengeTest: challengeTest)
+                    }
+                }
+
+                ScoreView(numberOfQuestions: questionPerSession, numberOfAnswered: $numberOfAnswered)
+            }
+        } else {
+            VStack {
+                Button {
+                    self.showAnswers = !self.showAnswers
+                } label: {
+                    QuestionView(question: challengeTest.challenge.question)
+                        .frame(height: 300)
+                }
+
+                ScoreView(numberOfQuestions: questionPerSession, numberOfAnswered: $numberOfAnswered)
+
+                if showAnswers {
+                    Divider()
+                    ChoicesView(challengeTest: challengeTest)
+                        .frame(height: 300)
+                        .padding()
+                }
+            }
+        }
     }
-  }
 }
 
 
 struct ChallengeView_Previews: PreviewProvider {
-  // 1
-  static let challengeTest = ChallengeTest(
-    challenge: Challenge(
-      question: "おねがい　します",
-      pronunciation: "Onegai shimasu",
-      answer: "Please"
-    ),
-    answers: ["Thank you", "Hello", "Goodbye"]
-  )
+    @State static var numberOfAnswered: Int = 0
 
-  static var previews: some View {
-    // 2
-    return ChallengeView(challengeTest: challengeTest)
-  }
+    // 1
+    static let challengeTest = ChallengeTest(
+        challenge: Challenge(
+            question: "おねがい　します",
+            pronunciation: "Onegai shimasu",
+            answer: "Please"
+        ),
+        answers: ["Thank you", "Hello", "Goodbye"]
+    )
+
+    static var previews: some View {
+        // 2
+        return ChallengeView(challengeTest: challengeTest, numberOfAnswered: $numberOfAnswered)
+    }
 }
