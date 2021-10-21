@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005716D8272037960035846B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005716D7272037960035846B /* SettingsView.swift */; };
 		571C66BC25439AF6002E497F /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571C66BB25439AF6002E497F /* ScoreView.swift */; };
 		571C66BD25439AF6002E497F /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571C66BB25439AF6002E497F /* ScoreView.swift */; };
 		573A7200253A5FE500B8D1BE /* StarterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573A71FF253A5FE500B8D1BE /* StarterView.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		005716D7272037960035846B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		571C66BB25439AF6002E497F /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
 		573A71FF253A5FE500B8D1BE /* StarterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarterView.swift; sourceTree = "<group>"; };
 		573A7204253A5FF100B8D1BE /* PracticeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		005716D6272037770035846B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				005716D7272037960035846B /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		57578F9024E9D943003465A4 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +226,7 @@
 		57EF33FF24E89F91004ABEB2 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				005716D6272037770035846B /* Settings */,
 				57AF758E25648311005C1716 /* Utils */,
 				573A71FF253A5FE500B8D1BE /* StarterView.swift */,
 				5794616E2540CB5100342D5D /* HistoryView.swift */,
@@ -378,6 +389,7 @@
 				575886AB25365E02006AD39D /* WelcomeBackgroundImage.swift in Sources */,
 				573A7211253A5FF100B8D1BE /* ChallengesViewModel.swift in Sources */,
 				57472F8C2533B85800F47C29 /* HorizontallyAlignedLabelStyle.swift in Sources */,
+				005716D8272037960035846B /* SettingsView.swift in Sources */,
 				57F765212537B3C0002C00B5 /* BorderedViewModifier.swift in Sources */,
 				57F7651C2537A6A5002C00B5 /* RegisterView.swift in Sources */,
 				57A447F0252BD68200CF7A3E /* WelcomeView.swift in Sources */,

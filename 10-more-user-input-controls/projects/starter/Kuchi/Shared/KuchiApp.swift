@@ -34,23 +34,26 @@ import SwiftUI
 
 @main
 struct KuchiApp: App {
-  let userManager = UserManager()
-  
-  init() {
-    userManager.load()
-  }
+    let userManager = UserManager()
 
-  var body: some Scene {
-    WindowGroup {
-      StarterView()
-        .environmentObject(userManager)
-        .environmentObject(ChallengesViewModel())
+    @AppStorage("appearance") var appearance: Appearance = .automatic
+
+    init() {
+        userManager.load()
     }
-  }
+
+    var body: some Scene {
+        WindowGroup {
+            StarterView()
+                .environmentObject(userManager)
+                .environmentObject(ChallengesViewModel())
+                .preferredColorScheme(appearance.getColorScheme())
+        }
+    }
 }
 
 struct KuchiApp_Previews: PreviewProvider {
-  static var previews: some View {
-    RegisterView(keyboardHandler: KeyboardFollower())
-  }
+    static var previews: some View {
+        RegisterView(keyboardHandler: KeyboardFollower())
+    }
 }
