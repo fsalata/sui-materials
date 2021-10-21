@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,55 +32,57 @@
 
 import SwiftUI
 
-struct HomeView: View {
-    @EnvironmentObject var userManager: UserManager
-    @EnvironmentObject var challengesViewModel: ChallengesViewModel
+enum DiscardedDirection {
+    case left
+    case right
+}
 
-    @AppStorage("learningEnabled") var learningEnabled: Bool = true
+struct DeckView: View {
+    @ObservedObject var deck: FlashDeck
+    @AppStorage("cardBackgroundColor") var cardBackgroundColorInt: Int = 0xFF0000FF
+
+    let onMemorized: () -> Void
+
+
+    init(deck: FlashDeck, onMemorized: @escaping () -> Void) {
+        self.onMemorized = onMemorized
+        self.deck = deck
+    }
 
     var body: some View {
-        TabView {
-            if learningEnabled {
-                LearnView()
-                    .tabItem {
-                        VStack {
-                            Image(systemName: "bookmark")
-                            Text("Learn")
-                        }
-                    }
-                    .tag(0)
+        ZStack {
+            ForEach(deck.cards.filter { $0.isActive }) { card in
+                self.getCardView(for: card)
             }
-
-            PracticeView(
-                challengeTest: $challengesViewModel.currentChallenge,
-                userName: $userManager.profile.name,
-                numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-            )
-                .tabItem({
-                    VStack {
-                        Image(systemName: "rectangle.dock")
-                        Text("Challenge")
-                    }
-                })
-                .tag(1)
-
-            SettingsView()
-                .tabItem({
-                    VStack {
-                        Image(systemName: "gear")
-                        Text("Settings")
-                    }
-                })
-                .tag(2)
         }
-        .accentColor(.orange)
+    }
+
+    func getCardView(for card: FlashCard) -> CardView {
+        let activeCards = deck.cards.filter { $0.isActive }
+
+        if let lastCard = activeCards.last,
+            lastCard == card {
+            return createCardView(for: card)
+        }
+
+        return createCardView(for: card)
+    }
+
+    func createCardView(for card: FlashCard) -> CardView {
+        return CardView(card,
+                        cardColor: Binding(
+                            get: { Color(rgba: cardBackgroundColorInt) },
+                            set: { newValue in cardBackgroundColorInt = newValue.asRgba }
+                        )) { card, direction in
+                            if direction == .left {
+                                self.onMemorized()
+                            }
+                        }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct DeckView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
-            .environmentObject(UserManager())
-            .environmentObject(ChallengesViewModel())
+        DeckView(deck: FlashDeck(from: ChallengesViewModel.challenges), onMemorized: {})
     }
 }

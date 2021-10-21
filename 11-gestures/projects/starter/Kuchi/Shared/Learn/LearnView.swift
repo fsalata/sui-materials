@@ -1,4 +1,4 @@
-/// Copyright (c) 2020 Razeware LLC
+/// Copyright (c) 2021 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -32,55 +32,29 @@
 
 import SwiftUI
 
-struct HomeView: View {
-    @EnvironmentObject var userManager: UserManager
-    @EnvironmentObject var challengesViewModel: ChallengesViewModel
-
-    @AppStorage("learningEnabled") var learningEnabled: Bool = true
+struct LearnView: View {
+    @ObservedObject var learningStore = LearningStore(deck: ChallengesViewModel.challenges)
 
     var body: some View {
-        TabView {
-            if learningEnabled {
-                LearnView()
-                    .tabItem {
-                        VStack {
-                            Image(systemName: "bookmark")
-                            Text("Learn")
-                        }
-                    }
-                    .tag(0)
+        VStack {
+            Spacer()
+
+            Text("Swipe left if you remembered" + "\nSwipe right if you didn't")
+                .font(.headline)
+
+            DeckView(deck: learningStore.deck) {
+                self.learningStore.score += 1
             }
 
-            PracticeView(
-                challengeTest: $challengesViewModel.currentChallenge,
-                userName: $userManager.profile.name,
-                numberOfAnswered: .constant(challengesViewModel.numberOfAnswered)
-            )
-                .tabItem({
-                    VStack {
-                        Image(systemName: "rectangle.dock")
-                        Text("Challenge")
-                    }
-                })
-                .tag(1)
+            Spacer()
 
-            SettingsView()
-                .tabItem({
-                    VStack {
-                        Image(systemName: "gear")
-                        Text("Settings")
-                    }
-                })
-                .tag(2)
+            Text("Remembered \(self.learningStore.score)/\(self.learningStore.deck.cards.count)")
         }
-        .accentColor(.orange)
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct LearnView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
-            .environmentObject(UserManager())
-            .environmentObject(ChallengesViewModel())
+        LearnView()
     }
 }
