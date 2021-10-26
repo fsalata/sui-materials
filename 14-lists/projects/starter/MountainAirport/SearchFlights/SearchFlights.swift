@@ -29,56 +29,83 @@
 import SwiftUI
 
 struct SearchFlights: View {
-  var flightData: [FlightInformation]
-  @State private var city = ""
-  @State private var date = Date()
-  @State private var directionFilter: FlightDirection = .none
+    var flightData: [FlightInformation]
+    @State private var city = ""
+    @State private var date = Date()
+    @State private var directionFilter: FlightDirection = .none
 
-  var matchingFlights: [FlightInformation] {
-    var matchingFlights = flightData
+    var matchingFlights: [FlightInformation] {
+        var matchingFlights = flightData
 
-    if directionFilter != .none {
-      matchingFlights = matchingFlights.filter {
-        $0.direction == directionFilter
-      }
-    }
-    if !city.isEmpty {
-      matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
-    }
-
-    return matchingFlights
-  }
-
-  var body: some View {
-    ZStack {
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      VStack {
-        Picker(
-          selection: $directionFilter,
-          label: Text("Flight Direction")) {
-          Text("All").tag(FlightDirection.none)
-          Text("Arrivals").tag(FlightDirection.arrival)
-          Text("Departures").tag(FlightDirection.departure)
+        if directionFilter != .none {
+            matchingFlights = matchingFlights.filter {
+                $0.direction == directionFilter
+            }
         }
-        .background(Color.white)
-        .pickerStyle(SegmentedPickerStyle())
-        TextField(" Search cities", text: $city)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
-        // Insert Results
-        Spacer()
-      }.navigationBarTitle("Search Flights")
-      .padding()
+        if !city.isEmpty {
+            matchingFlights = matchingFlights.filter { $0.otherAirport.lowercased().contains(city.lowercased()) }
+        }
+
+        return matchingFlights
     }
-  }
+
+
+    var flightDates: [Date] {
+        let allDates = matchingFlights.map { $0.localTime.dateOnly }
+        let uniqueDates = Array(Set(allDates))
+        return uniqueDates.sorted()
+    }
+
+    func flightForDay(date: Date) -> [FlightInformation] {
+        matchingFlights.filter { Calendar.current.isDate($0.localTime, inSameDayAs: date) }
+    }
+
+    var body: some View {
+
+
+        return ZStack {
+            Image("background-view")
+                .resizable()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack {
+                Picker(
+                    selection: $directionFilter,
+                    label: Text("Flight Direction")) {
+                        Text("All").tag(FlightDirection.none)
+                        Text("Arrivals").tag(FlightDirection.arrival)
+                        Text("Departures").tag(FlightDirection.departure)
+                    }
+                    .background(Color.white)
+                    .pickerStyle(SegmentedPickerStyle())
+                TextField(" Search cities", text: $city)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                List {
+                    ForEach(flightDates, id: \.hashValue) { date in
+                        Section(header: Text(longDateFormatter.string(from: date)),
+                                footer: HStack{
+                            Spacer()
+
+                            Text("Matching flights \(flightForDay(date: date).count)")
+                        }) {
+                            ForEach(flightForDay(date: date)) { flight in
+                                SearchResultRow(flight: flight)
+                            }
+                        }
+                    }
+                }
+                .listStyle(InsetGroupedListStyle())
+                Spacer()
+            }.navigationBarTitle("Search Flights")
+                .padding()
+        }
+    }
 }
 
 struct SearchFlights_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
-      )
+    static var previews: some View {
+        NavigationView {
+            SearchFlights(flightData: FlightData.generateTestFlights(date: Date())
+            )
+        }
     }
-  }
 }
