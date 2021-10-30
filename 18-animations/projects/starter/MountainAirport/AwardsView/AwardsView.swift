@@ -33,51 +33,75 @@
 import SwiftUI
 
 struct AwardsView: View {
-  @EnvironmentObject var flightNavigation: AppEnvironment
+    @EnvironmentObject var flightNavigation: AppEnvironment
 
-  var awardArray: [AwardInformation] {
-    flightNavigation.awardList
-  }
+    @State var selectedAward: AwardInformation?
 
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
+    @Namespace var cardNamespace
 
-  var inactiveAwards: [AwardInformation] {
-    awardArray.filter { !$0.awarded }
-  }
+    var awardArray: [AwardInformation] {
+        flightNavigation.awardList
+    }
 
-  var awardColumns: [GridItem] {
-    [GridItem(.adaptive(minimum: 150, maximum: 170))]
-  }
+    var activeAwards: [AwardInformation] {
+        awardArray.filter { $0.awarded }
+    }
 
-  var body: some View {
-    ScrollView {
-      LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
-        AwardGrid(
-          title: "Awarded",
-          awards: activeAwards
+    var inactiveAwards: [AwardInformation] {
+        awardArray.filter { !$0.awarded }
+    }
+
+    var awardColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: 150, maximum: 170))]
+    }
+
+    var body: some View {
+        ZStack {
+            if let award = selectedAward {
+                AwardDetails(award: award)
+                    .background(Color.white)
+                    .shadow(radius: 5.0)
+                    .clipShape(RoundedRectangle(cornerRadius: 20.0))
+                    .onTapGesture {
+                        withAnimation {
+                            selectedAward = nil
+                        }
+                    }
+                    .matchedGeometryEffect(id: award.hashValue, in: cardNamespace, anchor: .topLeading)
+            } else {
+                ScrollView {
+                    LazyVGrid(columns: awardColumns, pinnedViews: .sectionHeaders) {
+                        AwardGrid(
+                            title: "Awarded",
+                            awards: activeAwards,
+                            selected: $selectedAward,
+                            namespace: cardNamespace
+                        )
+                        AwardGrid(
+                            title: "Not Awarded",
+                            awards: inactiveAwards,
+                            selected: $selectedAward,
+                            namespace: cardNamespace
+                        )
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(
+            Image("background-view")
+                .resizable()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         )
-        AwardGrid(
-          title: "Not Awarded",
-          awards: inactiveAwards
-        )
-      }
-    }.padding()
-    .background(
-      Image("background-view")
-        .resizable()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    )
-    .navigationTitle("Your Awards")
-  }
+        .navigationTitle("Your Awards")
+    }
 }
 
 struct AwardsView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      AwardsView()
-    }.navigationViewStyle(StackNavigationViewStyle())
-    .environmentObject(AppEnvironment())
-  }
+    static var previews: some View {
+        NavigationView {
+            AwardsView()
+        }.navigationViewStyle(StackNavigationViewStyle())
+            .environmentObject(AppEnvironment())
+    }
 }
